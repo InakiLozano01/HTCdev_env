@@ -1,0 +1,48 @@
+# docker-compose.yml
+
+version: '3.8'
+
+services:
+  webserver:
+    build: .
+    container_name: php-apache
+    volumes:
+      - ./user1/tapir:/var/www/html/user1
+      - ./user2/tapir:/var/www/html/user2
+      - webdata:/var/www/html
+      - weblogs:/var/logs
+      - ./config/php.ini:/usr/local/etc/php/php.ini
+      - ./config/user1.conf:/etc/apache2/sites-available/user1.conf
+      - ./config/user2.conf:/etc/apache2/sites-available/user2.conf
+    ports:
+      - "80:80"
+      - "2222:2222"
+    networks:
+      - devenv-net
+      - dbnet
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14.12
+    container_name: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: development
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpassword
+    networks:
+      - dbnet
+
+networks:
+  devenv-net:
+    driver: bridge
+  dbnet:
+    driver: bridge
+    internal: true
+
+volumes:
+  pgdata:
+  webdata:
+  weblogs:

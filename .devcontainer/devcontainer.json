@@ -1,0 +1,21 @@
+{
+  "name": "PHP Development Environment",
+  "dockerComposeFile": ["../../docker-compose.yml"],
+  "service": "webserver",
+  "workspaceFolder": "/var/www/html/user1",
+  "postCreateCommand": "composer install",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "php.validate.executablePath": "/usr/local/bin/php",
+        "php.executablePath": "/usr/local/bin/php"
+      },
+      "extensions": [
+        "felixfbecker.php-debug",
+        "bmewburn.vscode-intelephense-client",
+        "neilbrayfield.php-docblocker",
+        "xabikos.JavaScriptSnippets"
+      ]
+    }
+  }
+}

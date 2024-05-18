@@ -1,0 +1,6 @@
+[submodule "user2/tapir"]
+	path = user2/tapir
+	url = https://gitlab.com/yunga/tapir.git
+[submodule "user1/tapir"]
+	path = user1/tapir
+	url = https://gitlab.com/yunga/tapir.git
