@@ -18,7 +18,9 @@ RUN apt-get update && apt-get install -y \
     pkg-config \
     libonig-dev \
     libeditreadline-dev \
-    libedit-dev
+    libedit-dev \
+    openssl \
+    libxslt-dev 
 
 # Configurar LDAP antes de instalar las extensiones
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
@@ -42,6 +44,7 @@ RUN docker-php-ext-install -j$(nproc) simplexml && echo "simplexml installed"
 RUN docker-php-ext-install -j$(nproc) sockets && echo "sockets installed"
 RUN docker-php-ext-install -j$(nproc) xml && echo "xml installed"
 RUN docker-php-ext-install -j$(nproc) zip && echo "zip installed"
+RUN docker-php-ext-install -j$(nproc) xsl && echo "xsl installed"
 
 # Install and enable Xdebug
 RUN pecl install xdebug && docker-php-ext-enable xdebug
@@ -80,6 +83,13 @@ RUN chown -R www-data:www-data /var/www/html
 # Crear un script de inicio para manejar múltiples servicios
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
+
+COPY /config/user1.conf /etc/apache2/sites-available/user1.conf
+COPY /config/user2.conf /etc/apache2/sites-available/user2.conf
+
+RUN a2ensite user1.conf
+RUN a2ensite user2.conf
+RUN a2dissite 000-default.conf
 
 # Iniciar Apache y SSH
 CMD ["/usr/local/bin/start.sh"]

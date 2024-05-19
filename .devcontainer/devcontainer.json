@@ -1,8 +1,10 @@
+/*Configuracion para levantar contenedor local, no es la idea*/
+
 {
   "name": "PHP Development Environment",
   "dockerComposeFile": ["../../docker-compose.yml"],
   "service": "webserver",
-  "workspaceFolder": "/var/www/html/user1",
+  "workspaceFolder": "/var/www/html",
   "postCreateCommand": "composer install",
   "customizations": {
     "vscode": {

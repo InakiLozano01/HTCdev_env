@@ -10,10 +10,11 @@ services:
       - ./user1/tapir:/var/www/html/user1
       - ./user2/tapir:/var/www/html/user2
       - webdata:/var/www/html
-      - weblogs:/var/logs
+      - weblogs:/var/log/apache2
       - ./config/php.ini:/usr/local/etc/php/php.ini
       - ./config/user1.conf:/etc/apache2/sites-available/user1.conf
       - ./config/user2.conf:/etc/apache2/sites-available/user2.conf
+      - ./config/hosts:/etc/hosts
     ports:
       - "80:80"
       - "2222:2222"
@@ -32,6 +33,8 @@ services:
       POSTGRES_DB: development
       POSTGRES_USER: devuser
       POSTGRES_PASSWORD: devpassword
+    ports:
+      - "5432:5432"
     networks:
       - dbnet
 
@@ -40,9 +43,11 @@ networks:
     driver: bridge
   dbnet:
     driver: bridge
-    internal: true
 
 volumes:
   pgdata:
+   driver: local
   webdata:
+   driver: local
   weblogs:
+    driver: local
