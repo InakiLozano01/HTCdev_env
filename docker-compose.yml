@@ -16,7 +16,7 @@ services:
       - ./config/user2.conf:/etc/apache2/sites-available/user2.conf
       - ./config/hosts:/etc/hosts
     ports:
-      - "80:80"
+      - "8081:80"
       - "2222:2222"
     networks:
       - devenv-net
