@@ -4,5 +4,10 @@ fe00::0	ip6-localnet
 ff00::0	ip6-mcastprefix
 ff02::1	ip6-allnodes
 ff02::2	ip6-allrouters
-127.0.0.1/user1 tapirsysuser1.test
-127.0.0.1/user2 tapirsysuser2.test
+127.0.0.1/maxi tapirsysmaxi.test
+127.0.0.1/inaki tapirsysinaki.test
+127.0.0.1/pedro tapirsyspedro.test
+127.0.0.1/fernando tapirsysfernando.test
+127.0.0.1/facundo tapirsysfacundo.test
+127.0.0.1/jpablo tapirsysjpablo.test
+127.0.0.1/jluis tapirsysjluis.test

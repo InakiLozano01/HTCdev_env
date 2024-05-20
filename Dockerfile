@@ -63,16 +63,26 @@ RUN mkdir /var/run/sshd \
     && echo 'root:password' | chpasswd \
     && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config \
-    && useradd -m user1 && echo 'user1:password1' | chpasswd \
-    && useradd -m user2 && echo 'user2:password2' | chpasswd
+    && useradd -m maxi && echo 'maxi:maxi123' | chpasswd \
+    && useradd -m pedro && echo 'pedro:pedro123' | chpasswd \
+    && useradd -m fernando && echo 'fernando:fernando123' | chpasswd \
+    && useradd -m jpablo && echo 'jpablo:jpablo123' | chpasswd \
+    && useradd -m jluis && echo 'jluis:jluis123' | chpasswd \
+    && useradd -m facundo && echo 'facundo:facundo123' | chpasswd \
+    && useradd -m inaki && echo 'inaki:inaki123' | chpasswd
     
 # Expose SSH port
 EXPOSE 2222
 
 # Crear directorios de logs
 RUN mkdir -p /var/log/apache2 \
-    && touch /var/log/apache2/user1_error.log \
-    && touch /var/log/apache2/user1_access.log
+    && touch /var/log/apache2/maxi_error.log \
+    && touch /var/log/apache2/pedro_access.log \
+    && touch /var/log/apache2/fernando_error.log \
+    && touch /var/log/apache2/jpablo_access.log \
+    && touch /var/log/apache2/jluis_error.log \
+    && touch /var/log/apache2/facundo_access.log \
+    && touch /var/log/apache2/inaki_error.log
 
 # Configurar el nombre del servidor
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
@@ -84,11 +94,21 @@ RUN chown -R www-data:www-data /var/www/html
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-COPY /config/user1.conf /etc/apache2/sites-available/user1.conf
-COPY /config/user2.conf /etc/apache2/sites-available/user2.conf
+COPY /config/maxi.conf /etc/apache2/sites-available/maxi.conf
+COPY /config/pedro.conf /etc/apache2/sites-available/pedro.conf
+COPY /config/fernando.conf /etc/apache2/sites-available/fernando.conf
+COPY /config/jpablo.conf /etc/apache2/sites-available/jpablo.conf
+COPY /config/jluis.conf /etc/apache2/sites-available/jluis.conf
+COPY /config/facundo.conf /etc/apache2/sites-available/facundo.conf
+COPY /config/inaki.conf /etc/apache2/sites-available/inaki.conf
 
-RUN a2ensite user1.conf
-RUN a2ensite user2.conf
+RUN a2ensite maxi.conf
+RUN a2ensite pedro.conf
+RUN a2ensite fernando.conf
+RUN a2ensite jpablo.conf
+RUN a2ensite jluis.conf
+RUN a2ensite facundo.conf
+RUN a2ensite inaki.conf
 RUN a2dissite 000-default.conf
 
 # Iniciar Apache y SSH

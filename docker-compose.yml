@@ -7,13 +7,23 @@ services:
     build: .
     container_name: php-apache
     volumes:
-      - ./user1/tapir:/var/www/html/user1
-      - ./user2/tapir:/var/www/html/user2
+      - ./repos/maxi/tapir:/var/www/html/maxi
+      - ./repos/pedro/tapir:/var/www/html/pedro
+      - ./repos/fernando/tapir:/var/www/html/fernando
+      - ./repos/facundo/tapir:/var/www/html/facundo
+      - ./repos/jpablo/tapir:/var/www/html/jpablo
+      - ./repos/jluis/tapir:/var/www/html/jluis
+      - ./repos/inaki/tapir:/var/www/html/inaki
       - webdata:/var/www/html
       - weblogs:/var/log/apache2
       - ./config/php.ini:/usr/local/etc/php/php.ini
-      - ./config/user1.conf:/etc/apache2/sites-available/user1.conf
-      - ./config/user2.conf:/etc/apache2/sites-available/user2.conf
+      - ./config/maxi.conf:/etc/apache2/sites-available/maxi.conf
+      - ./config/pedro.conf:/etc/apache2/sites-available/pedro.conf
+      - ./config/fernando.conf:/etc/apache2/sites-available/fernando.conf
+      - ./config/facundo.conf:/etc/apache2/sites-available/facundo.conf
+      - ./config/jpablo.conf:/etc/apache2/sites-available/jpablo.conf
+      - ./config/jluis.conf:/etc/apache2/sites-available/jluis.conf
+      - ./config/inaki.conf:/etc/apache2/sites-available/inaki.conf
       - ./config/hosts:/etc/hosts
     ports:
       - "8081:80"
