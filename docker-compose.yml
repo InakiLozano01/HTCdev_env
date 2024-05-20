@@ -5,17 +5,15 @@ version: '3.8'
 services:
   webserver:
     build: .
-    container_name: php-apache
+    container_name: php-apache-devenv:v1.0
     volumes:
-      - ./repos/maxi/tapir:/var/www/html/maxi
-      - ./repos/pedro/tapir:/var/www/html/pedro
-      - ./repos/fernando/tapir:/var/www/html/fernando
-      - ./repos/facundo/tapir:/var/www/html/facundo
-      - ./repos/jpablo/tapir:/var/www/html/jpablo
-      - ./repos/jluis/tapir:/var/www/html/jluis
-      - ./repos/inaki/tapir:/var/www/html/inaki
-      - webdata:/var/www/html
-      - weblogs:/var/log/apache2
+      - ./maxi/tapir:/var/www/html/maxi
+      - ./pedro/tapir:/var/www/html/pedro
+      - ./fernando/tapir:/var/www/html/fernando
+      - ./facundo/tapir:/var/www/html/facundo
+      - ./jpablo/tapir:/var/www/html/jpablo
+      - ./jluis/tapir:/var/www/html/jluis
+      - ./inaki/tapir:/var/www/html/inaki
       - ./config/php.ini:/usr/local/etc/php/php.ini
       - ./config/maxi.conf:/etc/apache2/sites-available/maxi.conf
       - ./config/pedro.conf:/etc/apache2/sites-available/pedro.conf
@@ -27,7 +25,6 @@ services:
       - ./config/hosts:/etc/hosts
     ports:
       - "8081:80"
-      - "2222:2222"
     networks:
       - devenv-net
       - dbnet
@@ -40,9 +37,9 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: development
+      POSTGRES_DB: tapir
       POSTGRES_USER: devuser
-      POSTGRES_PASSWORD: devpassword
+      POSTGRES_PASSWORD: HTC$1500
     ports:
       - "5432:5432"
     networks:
@@ -57,7 +54,3 @@ networks:
 volumes:
   pgdata:
    driver: local
-  webdata:
-   driver: local
-  weblogs:
-    driver: local
